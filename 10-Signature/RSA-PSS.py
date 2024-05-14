@@ -1,5 +1,6 @@
 from hashlib import sha1
 from math import ceil
+from sys import byteorder
 
 m = input().strip()
 n = int(input()) # RSA modulo
@@ -41,7 +42,7 @@ if mode == "Sign":
 
     encrypted_message = masked_db + modified_hash + b"\xbc"
 
-    plaintext = int.from_bytes(encrypted_message)
+    plaintext = int.from_bytes(encrypted_message, byteorder="big")
     cipher = pow(plaintext, d, n)
 
     print(hex(cipher)[2:])
@@ -67,7 +68,7 @@ elif mode == "Vrfy":
         db_mask = mgf(modified_hash, emlen-hlen-1)
 
         data_block = bytes([a ^ b for a, b in zip(masked_db, db_mask)]) 
-        data_block = (data_block[0] & (0xff >> (8*emlen-em_bits))).to_bytes() + data_block[1:]
+        data_block = (data_block[0] & (0xff >> (8*emlen-em_bits))).to_bytes(1, byteorder="big") + data_block[1:]
 
         padding_2 = b"\x00" * (emlen - slen - hlen - 2) + b"\x01"
 
