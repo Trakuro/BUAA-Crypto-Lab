@@ -60,10 +60,10 @@ def sha1(data: Union[bytes, bytearray]) -> bytes:
             a = temp
 
         h0 = ( a + h0 ) % 2 ** 32
-        h1 = ( b + h1 ) % 2 ** 3 
-        h2 = ( c + h2 ) % 2 ** 3 
-        h3 = ( d + h3 ) % 2 ** 3 
-        h4 = ( e + h4 ) % 2 ** 3 
+        h1 = ( b + h1 ) % 2 ** 32 
+        h2 = ( c + h2 ) % 2 ** 32 
+        h3 = ( d + h3 ) % 2 ** 32 
+        h4 = ( e + h4 ) % 2 ** 32 
 
     digest = hex(h0)[2:] + hex(h1)[2:] + hex(h2)[2:] + hex(h3)[2:] + hex(h4)[2:]
     return digest
