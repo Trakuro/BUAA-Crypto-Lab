@@ -37,14 +37,16 @@ def main():
 
     rc4 = RC4(key)
     print("0x", end="")
-    this_byte = sys.stdin.read(2)
-    try:
-        while this_byte and this_byte[0] in "0123456789abcdef":
+    while True:
+        this_byte = sys.stdin.read(2)
+        if len(this_byte) < 2:
+            break
+
+        try:
             this_char = int(this_byte, 16)
             print(hex(rc4.encrypt(this_char))[2:], end="")
-            this_byte = sys.stdin.read(2)
-    except Exception as _:
-        pass
+        except ValueError:
+            break
 
 
 if __name__ == "__main__":
