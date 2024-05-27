@@ -1,5 +1,11 @@
 from Crypto.Cipher import DES3
 
+"""
+不让调库
+唉 懒得喷
+之后再搞吧
+"""
+
 
 # Use of some Closure here
 # Well it's nonsense i fear
