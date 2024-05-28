@@ -32,19 +32,25 @@ class RC4:
 
 
 def main():
-    key = input()[2:]
+    key = input()[2:].strip()
     this_byte = sys.stdin.read(2)  # Get the 0x from stdin
+    assert this_byte == "0x"
 
     rc4 = RC4(key)
     print("0x", end="")
     while True:
-        this_byte = sys.stdin.read(2)
+        try:
+            this_byte = sys.stdin.read(2)
+        except EOFError:
+            break
+
         if len(this_byte) < 2:
             break
 
         try:
             this_char = int(this_byte, 16)
             print(hex(rc4.encrypt(this_char))[2:], end="")
+
         except ValueError:
             break
 
